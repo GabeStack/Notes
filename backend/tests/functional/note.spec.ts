@@ -17,17 +17,14 @@ test.group('Note', (group) => {
     title: 'test',
     describe: 'sswswswswswswsscsw',
     favorite: false,
-    color: 'red',
-    position: 2
+    color: 'red'
   }
     const response = await client.post('/notes').bearerToken(apiToken.token).json(notePayload)
     response.assertStatus(201)
-    console.log(response.body())
     assert.equal(response.body().note.title, notePayload.title)
     assert.equal(response.body().note.describe, notePayload.describe)
     assert.equal(response.body().note.favorite, notePayload.favorite)
     assert.equal(response.body().note.color, notePayload.color)
-    assert.equal(response.body().note.position, notePayload.position)
   })
   test('should return 422 when required note data is not provided', async ({client, assert}) =>{
     const plainPassword = 'test'
@@ -46,8 +43,7 @@ test.group('Note', (group) => {
       title: 'test',
       describe: 'sswswswswswswsscsw',
       favorite: false,
-      color: 'red',
-      position: 2
+      color: 'red'
     }
     const signIn = await client.post('/sessions').json({email: user.email, password: plainPassword})
     signIn.assertStatus(201)
@@ -64,10 +60,8 @@ test.group('Note', (group) => {
       assert.equal(note.describe, notePayload.describe)
       assert.equal(note.favorite, notePayload.favorite)
       assert.equal(note.color, notePayload.color)
-      assert.equal(note.position, notePayload.position)
   }
   })
-  
   test('it should update an note', async ({client, assert}) => {
     const plainPassword = 'test'
     const user = await UserFactory.merge({password: plainPassword}).create()
@@ -76,13 +70,23 @@ test.group('Note', (group) => {
     const apiToken = signIn.body().token
     const noteResponse = await client.post('/notes').bearerToken(apiToken.token).json({title: 'test', describe: 'test',favorite: false, color: 'red'})
     noteResponse.assertStatus(201)
-    console.log(noteResponse.body())
-    const updateResponse = await client.put('/notes/1').bearerToken(apiToken.token).json({title: 'tes', describe: 'te2s',favorite: true, color: 'green'})
+    const updateResponse = await client.put(`/notes/${noteResponse.body().note.id}`).bearerToken(apiToken.token).json({title: 'tes', describe: 'te2s',favorite: true, color: 'green'})
     updateResponse.assertStatus(200)
-    console.log(updateResponse.body())
     assert.notEqual(noteResponse.body().note.title, updateResponse.body().note.title)
     assert.notEqual(noteResponse.body().note.describe, updateResponse.body().note.describe)
     assert.notEqual(noteResponse.body().note.favorite, updateResponse.body().note.favorite)
     assert.notEqual(noteResponse.body().note.color, updateResponse.body().note.color)
+  })
+  test('it should destroy an note', async ({client, assert})=>{
+    const plainPassword = 'test'
+    const user = await UserFactory.merge({password: plainPassword}).create()
+    const signIn = await client.post('/sessions').json({email: user.email, password: plainPassword})
+    signIn.assertStatus(201)
+    const apiToken = signIn.body().token
+    const noteResponse = await client.post('/notes').bearerToken(apiToken.token).json({title: 'test', describe: 'test',favorite: false, color: 'red'})
+    noteResponse.assertStatus(201)
+    const response = await client.delete(`/notes/${noteResponse.body().note.id}`).bearerToken(apiToken.token)
+    response.assertStatus(200)
+    assert.isEmpty(response.body())
   })
 })

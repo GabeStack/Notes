@@ -34,4 +34,10 @@ export default class NotesController {
         await note.save()
         return response.ok({note})
     }
+    public async destroy ({request, response} : HttpContextContract){
+        const id = request.param('id')
+        const note = await Note.findOrFail(id)
+        note.delete()
+        response.ok({})
+    }
 }

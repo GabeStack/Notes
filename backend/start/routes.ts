@@ -12,3 +12,4 @@ Route.delete('/sessions', 'SessionsController.destroy')
 
 Route.put('/users/:id', 'UsersController.update').middleware('auth')
 Route.put('/notes/:id', 'NotesController.update').middleware('auth')
+Route.delete('/notes/:id', 'NotesController.destroy').middleware('auth')

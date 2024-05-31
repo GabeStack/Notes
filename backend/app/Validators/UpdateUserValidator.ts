@@ -7,7 +7,6 @@ export default class UpdateUserValidator {
   public schema = schema.create({
     password: schema.string({}, [rules.minLength(4)]),
     email: schema.string({}, [rules.email()]),
-    avatar: schema.string.optional({}, [rules.url()])
   })
 
   public messages: CustomMessages = {}

@@ -8,16 +8,36 @@ export default class UsersController {
 
   public async store({request, response}: HttpContextContract) {
     const userPayload = await request.validate(CreaterUser)
+    const coverImage = request.file('avatar', {
+      size: '2mb',
+      extnames: ['jpg','jpeg', 'png', 'webp'],
+    })
     const userByEmail = await  User.findBy('email', userPayload.email)
     const userByName = await  User.findBy('username', userPayload.username)
+    console.log(coverImage)
     if(userByEmail) throw new BadRequest('email already in use', 409)
     if(userByName) throw new BadRequest('username already in use', 409)
-    const users = await User.create(userPayload)
-    return response.created({users})
+    if(coverImage) {
+      await coverImage.moveToDisk('uploads', {}, 's3')
+      const coverImageName = coverImage.fileName
+      const users = await User.create({
+        username: userPayload.username,
+        email: userPayload.email,
+        password: userPayload.password,
+        avatar: coverImageName, 
+      })
+      return response.created({users})
+  }
+  const users = await User.create(userPayload)
+  return response.created({users})
   }
 
   public async update({response, request, bouncer}: HttpContextContract) {
-    const {email, avatar, password} = await request.validate(UpdateUser)
+    const {email, password} = await request.validate(UpdateUser)
+    const coverImage = request.file('avatar', {
+      size: '2mb',
+      extnames: ['jpg','jpeg', 'png', 'webp'],
+    })
     const id = request.param('id')
     const user = await User.findOrFail(id)
     await bouncer.authorize('updateUser', user)
