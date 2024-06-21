@@ -43,8 +43,22 @@ export default class UsersController {
     await bouncer.authorize('updateUser', user)
     user.email = email
     user.password = password
-    if (avatar) user.avatar = avatar
+    if (coverImage) {
+      const coverImageName = coverImage.fileName
+      if (coverImageName) {
+        await coverImage.moveToDisk('./uploads/avatars') 
+        user.avatar = coverImageName
+      }
+    }
     await user.save()
     return response.ok({user})
+  }
+  
+  public async destroy ({response, request, bouncer} :HttpContextContract){
+    const id = request.param('id')
+    const user = await User.findOrFail(id)
+    await bouncer.authorize('updateUser', user)
+    await user.delete()
+    return response.ok("Conta deletada.")
   }
 }
