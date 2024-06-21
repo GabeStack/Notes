@@ -1,6 +1,6 @@
 # Notes
 
-[![GitHub stars](https://img.shields.io/github/stars/Cyacer/notes.svg?style=social&label=Stars)](https://github.com/Cyacer/notes)
+[![GitHub stars](https://img.shields.io/github/stars/Cyacer/Notes.svg?style=social&label=Stars)](https://github.com/Cyacer/Notes)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 
 ## Descrição
