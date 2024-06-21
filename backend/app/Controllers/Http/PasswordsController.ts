@@ -18,9 +18,9 @@ export default class PasswordsController {
         const resetPasswordUrlWithToken = `${resetPasswordUrl}?token=${token}`
         await Mail.send((message) =>{
             message.from('no-reply@adonislab.com')
-            .to(email).subject('CoreNotes: Recuperação de Senha')
+            .to(email).subject('Notes: Recuperação de Senha')
             .htmlView('emails/forgotpassword', {
-                productName: 'CoreNotes',
+                productName: 'Notes',
                 name: user.username,
                 resetPasswordUrl: resetPasswordUrlWithToken
             })
