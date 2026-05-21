@@ -1,0 +1,51 @@
+name: Notes
+
+services:
+  # ─────────────────────────────────────────
+  # Backend — AdonisJS v7
+  # ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env        # APP_KEY, DB_HOST, DB_USER, DB_PASS, DB_NAME, etc.
+    environment:
+      PORT: "3333"
+      HOST: "0.0.0.0"
+      NODE_ENV: production
+    ports:
+      - "3333:3333"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ─────────────────────────────────────────
+  # Frontend — React + Vite
+  # ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3333}
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
