@@ -9,8 +9,6 @@
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![Last Commit](https://img.shields.io/github/last-commit/gabestack/notes?label=última%20atualização)
 ![Commit Activity](https://img.shields.io/github/commit-activity/m/gabestack/notes)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![AdonisJS](https://img.shields.io/badge/AdonisJS-6-5A45FF?logo=adonisjs)
 ![Portfolio](https://img.shields.io/badge/portfolio-gabestack.dev-0ea5e9)
 
 Um aplicativo pessoal de anotações desenvolvido como **case de portfólio**, com foco em:
