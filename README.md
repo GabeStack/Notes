@@ -28,7 +28,6 @@ Um aplicativo pessoal de anotações desenvolvido como **case de portfólio**, c
 - 📝 CRUD completo de notas com editor simples
 - 🔐 Autenticação JWT com refresh automático (sliding expiration)
 - 🔍 Busca em tempo real no título e conteúdo
-- 🌓 Modo claro/escuro seguindo o design system do Gabestack
 - 📱 Interface responsiva e acessível (mobile-first)
 - ⚡ Cache otimizado com React Query + revalidação em background
 
