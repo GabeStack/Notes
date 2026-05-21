@@ -4,8 +4,8 @@
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![AdonisJS](https://img.shields.io/badge/AdonisJS-6-5A45FF?logo=adonisjs&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![AdonisJS](https://img.shields.io/badge/AdonisJS-7-5A45FF?logo=adonisjs&logoColor=white)
+![License](https://img.shields.io/badge/license-apache2.0-blue.svg)
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![Last Commit](https://img.shields.io/github/last-commit/gabestack/notes?label=última%20atualização)
 ![Commit Activity](https://img.shields.io/github/commit-activity/m/gabestack/notes)
